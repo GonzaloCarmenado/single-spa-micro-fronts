@@ -6,13 +6,23 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Microfrontales</title>
+
+  <!-- Precarga opcional de single-spa si se usa CDN (mejora de rendimiento) -->
   <link rel="preload" href="https://cdn.jsdelivr.net/npm/single-spa@5.9.1/lib/system/single-spa.min.js" as="script"
-    crossorigin="anonymous">
+    crossorigin="anonymous" />
+
+  <!-- Necesario para compatibilidad con Angular (zone.js) y async/await (regenerator-runtime) -->
   <script src="https://cdn.jsdelivr.net/npm/regenerator-runtime@0.13.7/runtime.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/zone.js@0.11.3/dist/zone.min.js"></script>
+
+  <!-- Herramienta de desarrollo: permite cambiar el import map en tiempo real -->
   <script src="https://cdn.jsdelivr.net/npm/import-map-overrides@2.2.0/dist/import-map-overrides.js"></script>
+
+  <!-- SystemJS es el cargador de módulos usado por single-spa -->
   <script src="https://cdn.jsdelivr.net/npm/systemjs@6.8.3/dist/system.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/systemjs@6.8.3/dist/extras/amd.min.js"></script>
+
+  <!-- Mapa de importaciones: define qué se carga y desde dónde -->
   <script type="systemjs-importmap">
   {
     "imports": {
@@ -22,7 +32,8 @@
     }
   }
   </script>
-  Este es el root-config de microfrontales.
+
+  <!-- Layout del proyecto: define las rutas y qué aplicaciones se montan -->
   <template id="single-spa-layout">
     <single-spa-router>
       <route path="/angular-app-1">
@@ -34,8 +45,10 @@
 
 <body>
 
-  <div id="importmap-container"></div>
+  <!-- Vista del panel de import-map-overrides (solo visible con localStorage devtools) -->
   <import-map-overrides-full show-when-local-storage="devtools"></import-map-overrides-full>
+
+  <!-- Importación del root-config: arranca todo el sistema -->
   <script>
     System.import('@angular-microfrontends/root-config')
       .catch(err => console.error('Error loading root-config:', err));
