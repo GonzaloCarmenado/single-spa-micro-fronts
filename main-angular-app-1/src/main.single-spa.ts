@@ -9,6 +9,7 @@ import { bootstrapApplication } from '@angular/platform-browser';
 import { AppComponent } from './app/app.component';
 import { environment } from './environments/environment';
 import { appConfig } from './app/app.config';
+import { AppRoutingModule } from './app/app-routing.module';
 
 if (environment.production) {
   enableProdMode();
@@ -19,6 +20,7 @@ const lifecycles = singleSpaAngular({
     singleSpaPropsSubject.next(singleSpaProps);
     return bootstrapApplication(AppComponent, {
       providers: [
+        importProvidersFrom(AppRoutingModule),
         getSingleSpaExtraProviders(),
         ...appConfig.providers,
       ],
